@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+        .header {
+            border: 4px solid darkgreen;
+            /* text-align:center ; */
+            font-size:150%;
+        }
+        .header img {
+            width: 100%;
+            height: 150px;
+        }
+        .header h1 {
+            margin-top: -120px;
+            margin-bottom: 60px;
+            color: linen;
+            margin-left: 90px;
+        }
+        .logout{
+            border: 2px solid rgb(27, 69, 29);
+            background-color: rgb(27, 69, 29);
+            color: whitesmoke;
+            text-decoration: none;
+            display: flex;
+            justify-content: right;
+            margin-top: -50px;
+            margin-bottom: 18px;
+        }
+        .hub {
+            border: 2px solid rgb(27, 69, 29);
+            background-color: rgb(27, 69, 29);
+            color: whitesmoke;
+            text-decoration: none;
+            display: flex;
+            justify-content: right;
+            margin-top: -50px;
+            margin-bottom: 18px;
+            margin-right: 120px;
+        }
+        .form {
+            border: 4px solid rgb(27, 69, 29);
+            background-color: rgb(27, 69, 29);
+            color: whitesmoke;
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+            padding: 40px;
+        }
+        input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+/* Style the submit button */
+        input[type=submit] {
+            width: 100%;
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+}
+
+/* Add a background color to the submit button on mouse-over */
+        input[type=submit]:hover {
+            background-color: #45a049;
+}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <img src="../static/img/header_img.png" alt="plants">
+        <h1>Plantopia</h1>
+        <a href="/hub/{{user.id}}" class="hub">Hub</a>
+        <a href="/logout" class="logout">Logout</a>
+    </div>
+    <div class="form">
+        <form action="/create/plant" method="post" enctype="multipart/form-data">
+            {% with messages = get_flashed_messages(category_filter=['plant']) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            <label for="scientific_name" class="label">Scientific Name: </label>
+
+            <input type="text" name="scientific_name">
+            <br>
+            <label for="nickname" class="label">Nickname:</label>
+
+            <input type="text" name="nickname">
+            <br>
+            <label for="health"class="label" >Health:</label>
+
+            <select name="health" id="health">
+                <option value="select">Select</option>
+                <option value="dying">Dying</option>
+                <option value="dehydrated">Dehydrated</option>
+                <option value="good">Good</option>
+                <option value="great">Great</option>
+                <option value="thriving">Thriving</option>
+            </select>
+            <br>
+            <label for="img" class="label">Upload Image:</label>
+            <input type="file" name="img" id="img">
+            <br>
+            <label for="notes"class="label" >Notes:</label>
+            <br>
+            <textarea name="notes"></textarea>
+            <br>
+            <input type="submit" value="Save Plant">
+        </form>
+    </div>
+</body>
+</html>
